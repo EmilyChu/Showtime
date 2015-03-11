@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
-  belongs_to :user
+  has_many :users, through: :user_movies
 
   validates :title, presence: true
   validates :rating, presence: true
