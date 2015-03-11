@@ -1,0 +1,6 @@
+class Movie < ActiveRecord::Base
+  belongs_to :user
+
+  validates :title, presence: true
+  validates :rating, presence: true
+end
