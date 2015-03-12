@@ -48,7 +48,17 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-   def response_json
+  config.include Devise::TestHelpers, type: :controller
+
+  module ExtraTestHelpers
+    def login user
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in user
+    end
+
+    def response_json
       JSON.parse response.body
     end
+  end
+  config.include ExtraTestHelpers
 end

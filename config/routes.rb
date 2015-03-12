@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get '/movies' => 'movies#index'
-  post '/movies/movie_id/queue' => 'movies#checkout'
-  get '/movies/movie_id/stream' => 'movies#stream'
+  get '/queue' => 'movies#checkout'
+  get '/stream/:movie_id' => 'movies#stream'
+  # post '/movies/:movie_id/queue' => 'movies#checkout'
+
 
   root 'application#home'
 end

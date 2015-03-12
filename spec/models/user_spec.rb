@@ -1,5 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+  it "can checkout a movie" do
+    user = FactoryGirl.create :user
+    movie = FactoryGirl.create :movie
+
+    expect(user.movies.count).to eq 0
+    
+    user.checkout movie.id
+
+    expect(user.movies.count).to eq 1
+    expect(user.movies[0].title).to eq movie.title
+  end
 end
