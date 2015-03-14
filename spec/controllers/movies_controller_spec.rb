@@ -11,6 +11,7 @@ describe MoviesController do
     json = response_json
     expect(json.class).to eq Array
     expect(json.count).to eq 3
+    expect(json.last["title"]).to eq "Movie 3"
   end
 
   it "can checkout a movie" do
@@ -19,33 +20,32 @@ describe MoviesController do
     login user
 
     expect(user.movies.count).to eq 0
-    get :checkout, movie: movie 
+    post :checkout, movie_id: movie.id 
 
-    json = response_json
-    expect(json.class).to eq Array
-    expect(json.count).to eq 1
-    expect(user.movies.count).to eq 1
-    expect(user.movies[0].title).to eq movie.title
+    expect(response.code.to_i).to eq 200
   end
 
-  # fit "can stream a movie" do
-  #   user = FactoryGirl.create :user
-  #   movie = FactoryGirl.create :movie
-  #   login user
+  it "can stream a movie" do
+    user = FactoryGirl.create :user
+    movie = FactoryGirl.create :movie
+    login user
 
-  #   get :stream, movie: movie 
+    post :stream, movie_id: movie.id 
 
-  #   json = response_json
-  #   expect(response.code.to_i).to eq 200
-    # show movie title...
+    expect(response.code.to_i).to eq 200
+  end
 
-  # end
+  it "can checkin a movie" do
+    user = FactoryGirl.create :user
+    movie = FactoryGirl.create :movie
+    login user
+    UserMovie.create(user_id: user.id, movie_id: movie.id)
 
-  # it "will only stream if user is old enough" do
-  # end
+    expect(user.movies).to include movie 
+    post :checkin, movie_id: movie.id 
 
-  # it "won't let you to checkout a movie if over limit" do
-  # end
-
+    expect(response.code.to_i).to eq 200
+    expect(user.movies).not_to include movie
+  end
 
 end

@@ -30,7 +30,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.boolean :over_17, default: true
+      t.integer :age, default: 18, null: false
+      t.boolean :stream, default: true
+      t.integer :plan, default: 10, null: false
 
       t.timestamps
     end

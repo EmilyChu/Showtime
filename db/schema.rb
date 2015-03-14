@@ -21,14 +21,6 @@ ActiveRecord::Schema.define(version: 20150311191139) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "plans", force: :cascade do |t|
-    t.boolean  "stream",                default: true
-    t.integer  "checkout",   limit: 10
-    t.integer  "user_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
   create_table "user_movies", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "movie_id"
@@ -47,7 +39,9 @@ ActiveRecord::Schema.define(version: 20150311191139) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "over_17",                default: true
+    t.integer  "age",                    default: 18,   null: false
+    t.boolean  "stream",                 default: true
+    t.integer  "plan",                   default: 10,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

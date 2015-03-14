@@ -6,11 +6,27 @@ class MoviesController < ApplicationController
   end
 
   def checkout
-    current_user.checkout params[:movie]
-    @rented = current_user.movies.all
+    m = Movie.where(id: params[:movie_id]).first!
+    if current_user.checkout_movie m 
+      head :ok
+    else
+    end
   end
 
   def stream
+    m = Movie.where(id: params[:movie_id]).first!
+    if current_user.stream_movie m
+      head :ok
+    else
+    end
+  end
+
+  def checkin
+    m = Movie.where(id: params[:movie_id]).first!
+    if current_user.checkin_movie m
+      head :ok
+    else
+    end
   end
 
 end

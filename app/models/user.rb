@@ -7,9 +7,35 @@ class User < ActiveRecord::Base
   has_many :user_movies
   has_many :movies, through: :user_movies
   
-  def checkout movie_id
-    self.user_movies.first_or_create!(movie_id: movie_id.to_i)
+  def old_enough m
+    r = m.rating
+    age = self.age
+    if r == "R"
+      if age <18
+        false
+      else
+        true
+      end
+    end
   end
 
+  def checkout_movie m
+    movies = self.movies.count
+    unless movies >= self.plan
+      if self.old_enough m 
+        UserMovie.create(user_id: self.id, movie_id: m.id)
+      end
+    end
+  end
+
+  def stream_movie m 
+    self.stream && self.old_enough(m)
+  end
+
+  def checkin_movie m
+    if self.movies.include? m
+      UserMovie.find_by(user_id: self.id, movie_id: m.id).delete
+    end
+  end
 
 end
