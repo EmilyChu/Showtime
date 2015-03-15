@@ -11,18 +11,20 @@ class User < ActiveRecord::Base
     r = m.rating
     age = self.age
     if r == "R"
-      if age <18
+      if age <=17
         false
       else
         true
       end
+    else
+      true
     end
   end
 
   def checkout_movie m
     movies = self.movies.count
     unless movies >= self.plan
-      if self.old_enough m 
+      if self.old_enough m
         UserMovie.create(user_id: self.id, movie_id: m.id)
       end
     end

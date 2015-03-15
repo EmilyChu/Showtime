@@ -32,7 +32,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.integer :age, default: 18, null: false
       t.boolean :stream, default: true
-      t.integer :plan, default: 10, null: false
+      t.integer :plan, default: 2, null: false
 
       t.timestamps
     end

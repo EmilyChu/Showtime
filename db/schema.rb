@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150311191139) do
     t.string   "last_sign_in_ip"
     t.integer  "age",                    default: 18,   null: false
     t.boolean  "stream",                 default: true
-    t.integer  "plan",                   default: 10,   null: false
+    t.integer  "plan",                   default: 2,    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
