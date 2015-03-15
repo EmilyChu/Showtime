@@ -26,3 +26,8 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'coveralls', require: false
+  gem 'rack-test'
+  gem 'simplecov', require: false
+end
